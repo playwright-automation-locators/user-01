@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+
+# Playwright generated artifacts
+playwright-report/
+test-results/
+reports/
+
+# IDE
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
