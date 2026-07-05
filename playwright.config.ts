@@ -1,4 +1,12 @@
 import { defineConfig, devices } from '@playwright/test';
+
+declare const process: {
+  arch: string;
+  platform: string;
+};
+
+const supportsWebKit = !(process.platform === 'darwin' && process.arch === 'arm64');
+
 export default defineConfig({
   testDir: './tests',
   timeout: 30000,
@@ -27,9 +35,13 @@ export default defineConfig({
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
     },
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
+    ...(supportsWebKit
+      ? [
+          {
+            name: 'webkit',
+            use: { ...devices['Desktop Safari'] },
+          },
+        ]
+      : []),
   ],
 });
